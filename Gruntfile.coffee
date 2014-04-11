@@ -6,25 +6,32 @@ module.exports = (grunt) ->
         expand: true
         flatten: true
         src: ['src/coffee/*.coffee']
-        dest: 'js',
+        dest: 'src/js/',
         ext: '.js'
-   sass:
-     compile:
-       expand: true
-       flatten: true
-       src: ['scss/*.scss']
-       dest: 'css'
-       ext: '.css'
-   watch:
-     coffee:
-       files: ['src/coffee/*.coffee']
-       task: ['coffee']
-     sass:
-       files: ['src/scss/*scss']
-       task: ['sass']
+    sass:
+      compile:
+        expand: true
+        flatten: true
+        src: ['src/scss/*.scss']
+        dest: 'src/css'
+        ext: '.css'
+    watch:
+      coffee:
+        files: ['src/coffee/*.coffee']
+        task: ['coffee']
+      sass:
+        files: ['src/scss/*.scss']
+        task: ['sass']
+    uglify:
+      build:
+        files: [
+          src: 'src/js/*.js'
+          dest: 'lib/js/graph.min.js'
+        ]
 
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-sass'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
-  grunt.registerTask 'default', ['coffee', 'sass']
+  grunt.loadNpmTasks 'grunt-contrib-uglify'
+  grunt.registerTask 'default', ['coffee', 'sass', 'uglify']
   return
